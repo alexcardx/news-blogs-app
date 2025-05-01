@@ -1,0 +1,108 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@300..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --font-bebas: "Bebas Neue", sans-serif;
+  --font-comforta: "Comfortaa", sans-serif;
+  --breakpoint-xs: 31.25rem;
+  --breakpoint-ss: 26.25rem;
+}
+
+@layer utilities {
+  .bg-conic-gradient {
+    background: conic-gradient(#0000 10%, #ececec);
+  }
+  .bg-linear-gradient {
+    background: linear-gradient(to right, #b88efc, #6877f4);
+  }
+  .bg-linear-gradient:hover {
+    background: linear-gradient(to right, #935ee9, #4556e9);
+  }
+  .animate-rotate {
+    animation: rotate 1s linear infinite;
+  }
+  .animation-shake {
+    animation: shake 0.5s ease-in-out;
+  }
+  .scrollbar-w-4::-webkit-scrollbar {
+    width: 1rem;
+  }
+  .scrollbar-thumb::-webkit-scrollbar-thumb {
+    background: #504f4f;
+    border-radius: 1rem;
+  }
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+@media (min-width: 1280px) {
+  .scrollbar-show {
+    scrollbar-width: auto;
+    -ms-overflow-style: auto;
+  }
+
+  .scrollbar-show::-webkit-scrollbar {
+    display: block;
+  }
+}
+@keyframes rotate {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+input::-webkit-calendar-picker-indicator {
+  filter: invert(70%);
+}
+
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: Kanit, sans-serif;
+  line-height: normal;
+}
+i.bx-sun {
+  color: #ffc87c;
+}
+i.bx-cloud {
+  color: #f0fbff;
+}
+i.bx-cloud-rain {
+  color: #fff;
+}
+i.bx-lightning {
+  color: #154abd;
+}
+i.bx-cloud-snow {
+  color: #d9eff0;
+}
+i.bx-water {
+  color: #89cff0;
+}
+i.bx-wind {
+  color: #c2b280;
+}
