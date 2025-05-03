@@ -43,7 +43,11 @@ const Bookmarks = ({
       )}
       {!bookmarkedChosenArticle && (
         <Modal
-          heading={"Bookmarked News"}
+          heading={
+            userBookmarks.length === 0
+              ? "Bookmarks list is empty"
+              : "Bookmarked News"
+          }
           onClose={() => setSelectedCategory(null)}
           confirmation={confirmation}
         >
