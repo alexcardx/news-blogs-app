@@ -1,13 +1,14 @@
-export default async function handler(
-  req,
-  res
-) {
-  const response = await fetch(
-    'https://gnews.io/api/v4/top-headlines?category=general&lang=en&apikey=' +
-      process.env.GNEWS_API_KEY
-  )
+export default async function handler(req, res) {
+  const { category, q } = req.query;
 
-  const data = await response.json()
+  const url =
+    `https://gnews.io/api/v4/top-headlines?` +
+    `category=${category}&lang=en` +
+    (q ? `&q=${q}` : ``) +
+    `&apikey=${process.env.GNEWS_API_KEY}`;
 
-  res.status(200).json(data)
+  const r = await fetch(url);
+  const data = await r.json();
+
+  res.status(200).json(data);
 }
