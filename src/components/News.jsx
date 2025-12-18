@@ -24,40 +24,52 @@ const News = () => {
   const { query, selectedCategory, setSelectedCategory } =
     useContext(SearchContext);
 
-  const fetchNews = useCallback(
-    (signal) => {
-      const fetchData = async () => {
-        try {
-          setIsLoading(true);
-          setNews([]);
-          setError("");
-          const response = await fetch(
-            query
-              ? `${BASE_URL_NEWS}?category=${selectedCategory}&lang=en&q=${query}&apikey=${API_KEY_NEWS}`
-              : `${BASE_URL_NEWS}?category=${selectedCategory}&lang=en&apikey=${API_KEY_NEWS}`,
-            signal ? { signal } : {}
-          );
+const fetchNews = useCallback(
+  (signal) => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        setNews([]);
+        setError("");
 
-          if (!response.ok) {
-            throw new Error(
-              "Failed to fetch news. Please try to refresh the page"
-            );
-          }
+        const params = new URLSearchParams({
+          category: selectedCategory,
+          lang: "en",
+        });
 
-          const newsData = await response.json();
-          const fetchedNews = newsData.articles;
-          setHeadline(fetchedNews[0]);
-          setNews(fetchedNews.slice(1, 7));
-        } catch (err) {
-          if (err.name !== "AbortError") setError(err.message);
-        } finally {
-          setIsLoading(false);
+        if (query) {
+          params.append("q", query);
         }
-      };
-      fetchData();
-    },
-    [selectedCategory, query]
-  );
+
+        const response = await fetch(
+          `/api/news?${params.toString()}`,
+          signal ? { signal } : {}
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            "Failed to fetch news. Please try to refresh the page"
+          );
+        }
+
+        const newsData = await response.json();
+        const fetchedNews = newsData.articles;
+
+        setHeadline(fetchedNews[0]);
+        setNews(fetchedNews.slice(1, 7));
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          setError(err.message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  },
+  [selectedCategory, query]
+);
 
   useEffect(() => {
     const controller = new AbortController();
